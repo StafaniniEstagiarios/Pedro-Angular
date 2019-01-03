@@ -14,7 +14,7 @@ const httpOptions = {
 @Injectable()
 export class PessoaService {
 
-  private PessoasUrl = 'api/ProjetoTeste/rest/pessoas';
+  private PessoasUrl = 'api/projeto-teste/pessoas';
 
   constructor(
     private http: HttpClient){}
@@ -35,10 +35,16 @@ export class PessoaService {
         .pipe(catchError(this.handleError()));
   }
 
-  deletar(id: Number): Observable<Pessoa>{
+  deletar(id: number): Observable<Pessoa>{
       return this.http.delete<any>(this.PessoasUrl+`/${id}`, httpOptions)
         .pipe(map(pessoas => pessoas[0]), catchError(this.handleError())
       );
+  }
+
+  buscarPorId(idPessoa: number): Observable<Pessoa>{
+    return this.http.get<any>(this.PessoasUrl+`/${idPessoa}`)
+      .pipe(catchError(this.handleError())
+    );
   }
 
   private handleError () {

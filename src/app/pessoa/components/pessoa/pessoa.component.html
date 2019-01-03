@@ -1,0 +1,27 @@
+<br/>
+<div class="container-fluid">
+<button (click)="goCadastro()" class="btn btn-primary">Cadastrar Nova Pessoa</button>
+</div>
+<br/>
+<div class="container-fluid">
+<table class="table table-striped">
+  <thead  class="text-center">
+    <th>Id</th>
+    <th>Nome</th>
+    <th>Cargo</th>
+    <th>Idade</th>
+    <th colspan="2">Ações</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let pessoa of pessoas" class="text-center">
+      <td>{{pessoa.id}}</td>
+      <td>{{pessoa.nome}}</td>
+      <td>{{pessoa.cargo}}</td>
+      <td>{{pessoa.idade}}</td>
+      <td><button (click)="goAlterar(pessoa.id)" class="btn btn-primary">Alterar</button></td>
+      <td><button (click)="deletar(pessoa)" class="btn btn-danger">Deletar</button></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+

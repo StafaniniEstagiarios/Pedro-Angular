@@ -1,25 +1,30 @@
-import { PessoaService } from './services/pessoa.service';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { PessoaRoutingModule } from './pessoa-routing.module';
-import { PessoaComponent } from './components/pessoa.component';
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 
+import { PessoaRoutingModule } from './pessoa-routing.module';
+import { PessoaComponent } from './components/pessoa/pessoa.component';
+import { PessoaCadastroComponent } from './components/pessoa-cadastro/pessoa-cadastro.component';
+import { PessoaService } from './services/pessoa.service';
+import { PessoaResolve } from './resolves/pessoa.resolve';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 
 
 @NgModule({
   declarations: [
-    PessoaComponent
+    PessoaComponent,
+    PessoaCadastroComponent
   ],
   imports: [
-      CommonModule,
-      PessoaRoutingModule
+    CommonModule,
+    FormsModule,
+    PessoaRoutingModule
   ],
   providers: [
-    PessoaService 
+    PessoaService,
+    PessoaResolve
   ],
-  
+
 })
 export class PessoaModule { }
