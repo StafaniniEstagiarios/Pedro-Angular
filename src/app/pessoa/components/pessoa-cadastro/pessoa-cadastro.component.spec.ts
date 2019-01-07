@@ -1,7 +1,7 @@
 import { PessoaService } from './../../services/pessoa.service';
-import { TestBed } from '@angular/core/testing';
+import { TestBed, it, beforeEachProviders } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { inject } from '@angular/core';
+
 
 beforeEach(() => {
     TestBed.configureTestingModule({
