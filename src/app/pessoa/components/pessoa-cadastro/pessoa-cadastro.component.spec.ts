@@ -46,7 +46,7 @@ describe('Service: PessoaService', () => {
         service.gravar(pessoaTeste).subscribe(pessoa => {
             expect(pessoa).toEqual(pessoaTeste);
             pessoasMock.push();
-            expect(pessoasMock.length).toBe(4);
+            expect(pessoasMock.length).toBe(5);
         });
         const req = httpMock.expectOne(`api/projeto-teste/pessoas`);
 
@@ -68,7 +68,7 @@ describe('Service: PessoaService', () => {
         service.deletar(1).subscribe(pessoa =>{
             expect(pessoa).toEqual(pessoasMock[1]);
             pessoasMock.splice(1,1);
-            expect(pessoasMock.length).toBe(2);
+            expect(pessoasMock.length).toBe(3);
         });
         const req = httpMock.expectOne(`api/projeto-teste/pessoas/${1}`);
 
