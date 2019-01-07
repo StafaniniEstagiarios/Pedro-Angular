@@ -1,4 +1,4 @@
-import './jestGlobalMocks';
+import "./jestGlobalMocks";
 import "jest-preset-angular";
 
 Object.defineProperty(document.body.style, "transform", {

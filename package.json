@@ -11,7 +11,8 @@
   },
   "jest": {
     "preset": "jest-preset-angular",
-    "setupTestFrameworkScriptFile": "<rootDir>/src/setupJest.ts"
+    "testEnvironment": "node",
+    "setupTestFrameworkScriptFile": "<rootDir>/src/setup-jest.ts"
   },
   "private": true,
   "dependencies": {
