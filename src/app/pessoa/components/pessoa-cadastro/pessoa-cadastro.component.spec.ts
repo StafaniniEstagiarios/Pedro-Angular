@@ -6,12 +6,13 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 describe('Service: PessoaService', () => {
     let httpMock: HttpTestingController;
     let service: PessoaService;
-    const pessoaTeste = new Pessoa(4, 89,"Teste",'Teste');
+    const pessoaTeste = new Pessoa(4, 89, "Teste", 'Teste');
     let pessoasMock: Pessoa[] = [];
-    pessoasMock.push(new Pessoa(0, 15,"Joao",'Estudante'));
-    pessoasMock.push(new Pessoa(1, 15,"Tulio",'Estagiario'));
-    pessoasMock.push(new Pessoa(2, 55,"Djavani",'Analista Senior'));
-    pessoasMock.push(new Pessoa(3, 21,"Pedro",'Analista Jr'));
+    let tamanho;
+    pessoasMock.push(new Pessoa(0, 15, "Joao", 'Estudante'));
+    pessoasMock.push(new Pessoa(1, 15, "Tulio", 'Estagiario'));
+    pessoasMock.push(new Pessoa(2, 55, "Djavani", 'Analista Senior'));
+    pessoasMock.push(new Pessoa(3, 21, "Pedro", 'Analista Jr'));
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -29,17 +30,20 @@ describe('Service: PessoaService', () => {
         })
     );
 
+    afterEach(inject([HttpTestingController], (httpMock: HttpTestingController) => {
+        httpMock.verify();
+    }));
+
     test('buscarTodos() retorna tamanho da lista', () => {
 
         service.buscarTodos().subscribe(pessoas => {
-            var tamanho = pessoas.length;
-            expect(tamanho).toBe(4);
+            tamanho = pessoas.length;
         });
 
         const req = httpMock.expectOne(`api/projeto-teste/pessoas`);
-
+        expect(req.request.method).toEqual('GET');
         req.flush(pessoasMock);
-        httpMock.verify();
+        expect(tamanho).toBe(4);
     });
 
     test('gravar() passando todos os dados', () => {
@@ -49,42 +53,42 @@ describe('Service: PessoaService', () => {
             expect(pessoasMock.length).toBe(5);
         });
         const req = httpMock.expectOne(`api/projeto-teste/pessoas`);
-
+        expect(req.request.method).toEqual('POST');
         req.flush(pessoasMock);
-        httpMock.verify();
+       
     });
 
     test('bucarPorId() passando o id da pessoa', () => {
-        service.buscarPorId(0).subscribe(pessoa =>{
+        service.buscarPorId(0).subscribe(pessoa => {
             expect(pessoa).toEqual(pessoasMock[0]);
         });
         const req = httpMock.expectOne(`api/projeto-teste/pessoas/${0}`);
-
+        expect(req.request.method).toEqual('GET');
         req.flush(pessoasMock);
-        httpMock.verify();
+        
     });
 
     test('deletar() passando o id', () => {
-        service.deletar(1).subscribe(pessoa =>{
+        service.deletar(1).subscribe(pessoa => {
             expect(pessoa).toEqual(pessoasMock[1]);
-            pessoasMock.splice(1,1);
+            pessoasMock.splice(1, 1);
             expect(pessoasMock.length).toBe(3);
         });
         const req = httpMock.expectOne(`api/projeto-teste/pessoas/${1}`);
-
+        expect(req.request.method).toEqual('DELETE');
         req.flush(pessoasMock);
-        httpMock.verify();
+        
     });
 
     test('alterar() passando os atributos', () => {
         pessoaTeste.idade = 30;
-        service.alterar(pessoaTeste).subscribe( pessoa =>{
+        service.alterar(pessoaTeste).subscribe(pessoa => {
             expect(pessoa).toEqual(pessoaTeste);
         });
-        
-        const req = httpMock.expectOne(`api/projeto-teste/pessoas`);
 
+        const req = httpMock.expectOne(`api/projeto-teste/pessoas`);
+        expect(req.request.method).toEqual('PUT');
         req.flush(pessoaTeste);
-        httpMock.verify();
+       
     });
 });
